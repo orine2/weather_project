@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>오늘의날씨알리미</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <!-- Eric Meyer CSS Reset -->
     <link rel="stylesheet" href="./css/reset.css">
     
@@ -14,7 +17,7 @@
     <!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
-<body>
+<body data-weather="sunny">
     <!-- id 속성의 식별자 작성 명명  -->
     <!--  - kebab : CSS 에서 사용할 요소 -->
     <!--  - camel : JS 에서 사용할 요소 -->
@@ -22,9 +25,9 @@
     <!-- 공통 헤더 -->
     <section class="hero-photo">
         <div class="hero-inner">
-            <h1>일기 예보 페이지</h1>
+            <h1 class="hero-title">일기 예보 페이지</h1>
             <form action="" id="searchForm" class="search-form">
-                <input type="text" id="cityInput" autocomplete="off">
+                <input type="text" id="cityInput" placeholder="도시 이름 검색(예시:광주)" autocomplete="off">
                 <button type="submit">검색</button>
             </form>
         </div>
