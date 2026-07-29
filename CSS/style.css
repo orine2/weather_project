@@ -1,0 +1,60 @@
+/* ---------------------------------------------------------------- */
+/* CSS 변수 */
+/* ---------------------------------------------------------------- */
+:root {
+      --color-white:   #ffffff;
+      --color-ink:     #26313c;
+      --color-ink-sub: rgba(38, 49, 60, 0.75);
+      /* 포인트색: 행동 유도(검색 버튼)와 정보 강조(강수확률)에만 사용.
+         흰 배경 대비 5.2:1 확보 */
+      --color-accent:  #2e6cc4;
+      --card-bg:       rgba(255, 255, 255, 0.94);
+      /* 글자 크기 5단계 — 숫자 대신 단계 이름으로 관리 */
+      --fs-xs:   0.8rem;    /* 작은 라벨 (체감/습도 라벨, 배지, 푸터) */
+      --fs-sm:   0.85rem;   /* 보조 텍스트 (상태 문구, 일출일몰) */
+      --fs-md:   0.9rem;    /* 행 라벨·버튼 (시간, 요일, 탭) */
+      --fs-base: 1rem;      /* 본문 (도시명, 섹션 제목, 입력창) */
+      --fs-lg:   1.15rem;   /* 강조 숫자 (기온, 도시 온도) */
+      /* 화면이 커지면 미디어쿼리에서 재정의되는 컴포넌트 크기 */
+      --fs-hero: 2.2rem;
+      --fs-temp: 3.4rem;
+      /* 여백 8단계 (4pt 그리드) */
+      --sp-xs: 4px;
+      --sp-sm: 8px;
+      --sp-md: 12px;
+      --sp-lg: 16px;
+      --sp-xl: 20px;
+      --sp-2xl: 24px;
+      --sp-3xl: 32px;
+      --sp-4xl: 48px;
+      --radius-lg:     24px;
+      --radius-md:     16px;
+      --bg-start:      #6fb1fc;
+      --bg-end:        #4d6ef7;
+    }
+
+
+
+/* --------------------------------
+   날씨 카테고리별 배경 그라디언트
+   - JS 가 body 에 data-weather="sunny|cloudy|foggy|rainy|snowy|thunder" 를 설정하면
+     아래 선택자가 --bg-start / --bg-end 값을 바꿔줌 (Day 3 에서 동작)
+-------------------------------- */
+body[data-weather="sunny"]   { --bg-start: #6fb1fc; --bg-end: #4d6ef7; }
+body[data-weather="cloudy"]  { --bg-start: #93a5b8; --bg-end: #5c6f83; }
+body[data-weather="foggy"]   { --bg-start: #b9c6d1; --bg-end: #8592a1; }
+body[data-weather="rainy"]   { --bg-start: #4b6584; --bg-end: #24344a; }
+body[data-weather="snowy"]   { --bg-start: #8fb8d9; --bg-end: #5c86ab; }
+body[data-weather="thunder"] { --bg-start: #3c3b56; --bg-end: #18172a; }
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Noto Sans KR', sans-serif;
+  color: var(--color-ink);
+  min-height: 100vh;
+  background: linear-gradient(160deg, var(--bg-start), var(--bg-end));
+  transition: background 0.6s ease;
+}
