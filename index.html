@@ -37,7 +37,7 @@
     </section>
 
 
-    <div class="screen-home" class="screen">
+    <div class="screen-home screen" hidden>
         <div class="page-content">
             <div class="page-content-inner">
                 <div class="home-top">
@@ -99,11 +99,25 @@
 
                     
                 </div>
-                <div class="footer-home"></div>
+                <div class="footer-home">
+                    <p>Data by <a href="https://open-meteo.com" target="_blank">Open-Meteo</a></p>
+                    <p>순천효산고 김한결</p>
+                </div>
             </div>
         </div>
     </div>
-    <div id="screen-detail" class="screen" hidden></div>
+    <div id="screen-detail" class="screen screen-detail" >
+        <header class="detail-header">
+            <button type="button" id="backBtn" class="back-btn"> 목록으로</button>
+        </header>
+        <div class="app">
+            <main>
+                <p id="statusMsg" class="status-msg" role="status">
+                    날씨 정보를 불러오는 중....
+            </p>
+            </main>
+        </div>
+    </div>
 
 
 </body>
