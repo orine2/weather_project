@@ -9,6 +9,7 @@
          흰 배경 대비 5.2:1 확보 */
       --color-accent:  #2e6cc4;
       --card-bg:       rgba(255, 255, 255, 0.94);
+      --home-bg:        #eef1f5;
       /* 글자 크기 5단계 — 숫자 대신 단계 이름으로 관리 */
       --fs-xs:   0.8rem;    /* 작은 라벨 (체감/습도 라벨, 배지, 푸터) */
       --fs-sm:   0.85rem;   /* 보조 텍스트 (상태 문구, 일출일몰) */
@@ -60,7 +61,7 @@ body {
 }
 
 :focus-visible{
-    outline: 3px solid (var(--color-accent));
+    outline: 3px solid var(--color-accent);
     outline-offset: 2px;
 }
 
@@ -82,6 +83,10 @@ body {
     align-items: center;
     min-height: 320px;
     padding: var(--sp-3xl) var(--sp-xl);
+
+    background: linear-gradient(
+        rgba(10, 14, 20, 0.45),
+        rgba(10, 14, 20, 0.15));
 }
 .hero-inner{
     width:100%;
@@ -129,3 +134,81 @@ body {
     transition: 200ms;
 }
 .search-form button:hover {opacity: 0.85;}
+
+.page-content {
+    background: var(--home-bg);
+    padding: var(--sp-2xl) var(--sp-lg) var(--sp-4xl);
+}
+
+.page-content-inner {
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size:var(--fs-base);
+    font-weight: 700;
+    margin: var(--sp-2xl) var(--sp-lg);
+}
+
+.my-location-btn {
+    width: 100%;
+    border: 1px dashed rgba(37, 49, 60, 0.3);
+    background-color: transparent;
+    border-radius: var(--radius-md);
+    padding: var(--sp-lg);
+    font-size: var(--fs-md);
+    color: var(--color-ink-sub);
+    cursor: pointer;
+    transition: 200ms;
+}
+.my-location-btn:hover {
+    background-color: rgba(255, 255, 255, 0.7);
+    color: var(--color-ink);
+}
+.my-location-hint {
+    margin-top: var(--sp-sm);
+    text-align: center;
+    font-size: var(--fs-xs);
+    color: var(--color-ink-sub);
+}
+.my-location-msg {
+    text-align: center;
+    font-size: var(--fs-sm);
+    color: var(--color-ink-sub);
+    padding: var(--sp-md);
+}
+
+.extream-row {
+    display: flex;
+    gap: var(--sp-md);
+}
+.extream-card {
+    flex: 1;
+    background-color: var(--color-white);
+    border: none;
+    border-radius: var(--radius-md);
+    padding: var(--sp-lg);
+    box-shadow: 0 4px 14px rgba(38, 49, 50, 0, 0.08);
+    font-family: inherit;
+    text-align: center;
+    cursor: pointer;
+    transition: 150ms;
+
+}
+.extream-card:hover {
+    transform: translate(-1px);
+    box-shadow: 0 8px 20px rgba(37, 49, 60, 0.12);
+}
+
+.extream-label {
+    display: block;
+    font-size:var (--fs-xs);
+    color: var(--color-ink-sub);
+}
+.extream-value {
+    display: block;
+    margin-top: var(--sp-sm);
+    font-size: var(--fs-lg);
+    font-weight: 700;
+}
