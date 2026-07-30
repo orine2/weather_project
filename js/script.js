@@ -35,6 +35,64 @@ $(function () {
         showStatus(" 🚨" +msg);
     }
 
+    function loadWeather(lat, lon, dispalyName) {
+        showStatus("날씨 정보를 불러오는 중입니다......");
+
+        $.getJSON("https://api.open-meteo.com/v1/forecast", {
+            latitude: lat,
+            longitude: lon,
+            current: "temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m,apparent_temperature",
+            daily:"weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_probability_max",
+            forecast_days: 5,
+            timezone:"auto"
+        })
+        .done(function(data) {
+            renderWeather(data,dispalyName);
+            showResult();
+        })
+        .fail(function() {
+            showError("날씨 정보를 가져오지 못했습니다. 잠시후 다시 시도해주세요");
+        })
+    }
+
+    function renderWeather(data,dispalyName) {
+        console.log(data);
+
+        const cur= data.current;
+        const info= getWeatherInfo(cur.weather_code);
+        console.log(info);
+
+        $("body").data("data-weather", info.theme);
+
+        $('#locationName').text(dispalyName);
+        
+        $('#updatedTime').text(cur.time.replace('T',' ') + ' 기준');
+
+        $('#weatherIcon').attr('src', info.icon);
+        $('#temperature').text(Math.round(cur.temperature_2m) + '°');
+        $('#weatherDesc').text(info.label);
+        $('#feelslike').text(Math.round(cur.apparent_temperature) + '°');
+        $('#humidity').text(Math.round(cur.relative_humidity_2m) + '%');
+        $('#windspeed').text(Math.round(cur.wind_speed_10m) + 'km/h');
+        $('#preciprob').text(safeRound(data.daily.precipitation_probability_max[0], '%'));
+        $('#sunriseTime').text(formatClock(data.daily.sunrise[0]));
+        $('#sunsetTime').text(formatClock(data.daily.sunset[0]));
+
+
+
+    }
+
+    function showResult() {
+        $("#statusMsg").prop("hidden",true);
+        $("#tabBar").prop("hidden",false);
+
+        const activeTab= $(".tab-btn.active").data("tab") || "summary";
+        $("#panel-summary").prop("hidden", activeTab !== "summary");
+        $("#panel-hourly").prop("hidden", activeTab !== "hourly");
+    }
+
+    loadWeather( 37.5665, 126.9780, "서울");
+
     $("searchForm").on("submit",function(e) {
         e.preventDeafult();
 
@@ -44,10 +102,12 @@ $(function () {
 
         $(".tab-btn").removeClass("active").attr("aria-selceted", "false");
         $(this).addClass("active").attr("aria-selected", "true");
-        $("panel-summary").prop("hidden",tab !== "summary");
-        $("panel-hourly").prop("hidden",tab !== "hourly");
+        $("#panel-summary").prop("hidden",tab !== "summary");
+        $("#panel-hourly").prop("hidden",tab !== "hourly");
 
     });
+
+    
     
 
 });
