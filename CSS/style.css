@@ -131,7 +131,7 @@ body {
     font-weight: 500;
     font-size: var(--fs-base);
     cursor: pointer;
-    transition: 200ms;
+    transition:background  200ms;
 }
 .search-form button:hover {opacity: 0.85;}
 
@@ -160,7 +160,7 @@ body {
     font-size: var(--fs-md);
     color: var(--color-ink-sub);
     cursor: pointer;
-    transition: 200ms;
+    transition: background color 2000ms;
 }
 .my-location-btn:hover {
     background-color: rgba(255, 255, 255, 0.7);
@@ -193,8 +193,7 @@ body {
     font-family: inherit;
     text-align: center;
     cursor: pointer;
-    transition: 150ms;
-
+    transition: transform box-shadow 150ms;
 }
 .extream-card:hover {
     transform: translate(-1px);
@@ -231,7 +230,7 @@ body {
     font-family: inherit;
     text-align: left;
     cursor: pointer;
-    transition: 150ms;
+    transition: background color 150ms;
 }
 .city-row:hover {
     transform: translate(-1px);
@@ -309,6 +308,8 @@ body {
     min-height: 44px;
     border-radius: 1000px;
     cursor: pointer;
+
+    transition: background color 200ms;
 }
 
 .back-btn:hover{
@@ -344,7 +345,7 @@ body {
     min-height: 44px;
     border-radius: 1000px;
     cursor: pointer;
-    transition: 200ms;
+    transition: background color 2000ms;
 }
 .tab-btn:hover{
     background-color: var(--color-white);
@@ -353,4 +354,125 @@ body {
 .tab-btn.active{
     background-color: var(--color-white);
     color: var(--color-ink);
+}
+
+.tab-pannel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-xl);
+}
+
+.current-card{
+    background-color: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: var(--sp-3xl) var(--sp-2xl);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+
+.current-content{
+    width: 100;
+    text-align: center;
+}
+
+.location{
+    font-size: var(--fs-lg);
+    font-weight: 700;
+}
+
+.updated {
+    margin-top: var(--sp-xs);
+    font-size: var(--fs-xs);
+    color: var(--color-ink-sub);
+}
+
+.temp-row {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--sp-md);
+    margin-top: var(--sp-md);
+}
+
+.weather-icon {
+    width: 76px;
+    height: 76px;
+}
+.temp{
+    font-size: var(--fs-temp);
+    font-weight: 900;
+    line-height: 1;
+}
+.desc {
+    margin-top: var(--sp-xs);
+    font-size: var(--fs-base);
+    color: var(--color-ink-sub);    
+}
+
+.sub-info {
+    margin-top: var(--sp-2xl);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    border-top: 1px solid rgba(38, 49, 60, 0.15);
+    padding-top: var(--sp-lg);
+}
+
+.sub-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-xs);
+    font-size: var(--fs-base);
+    font-weight: 500;
+}
+
+.sub-label {
+    font-size: var(--fs-xs);
+    font-weight: 400;
+    color: var(--color-ink-sub);
+
+}
+.sun-info{
+    margin-top: var(--sp-lg);
+    display: flex;
+    justify-content: center;
+    gap: var(--sp-2xl);
+    font-size:var(--fs-sm);
+    color: var(--color-ink-sub);
+}
+
+.air-info {
+    margin-top: var(--sp-md);
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--sp-sm);
+
+}
+
+.air-badge {
+    font-size: var(--fs-xs);
+    font-weight:600;
+    padding: var(--sp-xs) var(--sp-md);
+    background-color: rgba(38, 49, 60, 0.08);
+    border-radius:1000px;
+    color: var(--color-ink-sub);
+}
+
+.air-badge.grade-good { background-color: rgba(46, 169, 90, 0,15); color:#2e8b50; }
+.air-badge.grade-normal{ background-color: rgba(64, 120, 200, 0.15); color:#3a6fc0; }
+.air-badge.grade-bad { background-color: rgba(230, 150, 40, 0.15); color: #c07a10; }
+.air-badge.grade-verybad { background-color: rgba(210, 60, 60, 0.15); color: #c03030; }
+
+
+
+.footer-detail {
+    text-align: center;
+    font-size: var(-fs-xs);
+    color: rgba(255, 255, 255, 0.94);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    line-height: 1.6;
+}
+.footer-detail a {
+    color: var(--color-white);
+    
 }
