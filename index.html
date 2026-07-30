@@ -28,7 +28,7 @@
     <!-- 공통 헤더 -->
     <section class="hero-photo">
         <div class="hero-inner">
-            <h1 class="hero-title">오늘의날씨 알리미 페이지</h1>
+            <h1 class="hero-title">오늘의 날씨 알리미 페이지</h1>
             <form action="" id="searchForm" class="search-form">
                 <input type="text" id="cityInput" placeholder="도시 이름 검색(예시:광주)" autocomplete="off">
                 <button type="submit">검색</button>
@@ -118,9 +118,63 @@
 
 
             <div id="tabBar" class="tab-bar" role="tablist">
-                <button type="button" class="tab-tbn active" data-tab="summary" role="tab" aria-selected="true">주간별 날씨</button>
-                <button type="button" class="tab-tbn" data-tab="hourly" role="tab" aria-selected="false">시간별 날씨</button>
+                <button type="button" class="tab-btn active" data-tab="summary" role="tab" aria-selected="true">주간별 날씨</button>
+                <button type="button" class="tab-btn" data-tab="hourly" role="tab" aria-selected="false">시간별 날씨</button>
             </div>
+
+
+            <div id="panel-summary" class="tab-pannel" role="tabpanel">
+                <section id="currentCard" class="current-Card">
+                    <div id="currentContent" class="current-content">
+                        <h2 id="locationName" class="locatin">서울</h2>
+                        <p id="updateTime" class="update">2026-07-30 10:15 기준</p>
+
+
+                        <div id="temp-row">
+                            <img src="./icons/clear-day.svg" alt="" class="weatherIcon weather-icon">
+                            <span id="temperature" class="temp">35℃</span>
+                        </div>
+                        <p id="weatherDesc" class="desc">맑음</p>
+
+                        <div class="sub-info">
+                            <div class="sub-item">
+                                <span class="sub-label">체감</span>
+                                <span id="feelslike">35℃</span>
+                            </div>
+                            <div class="sub-item">
+                                <span class="sub-label">습도</span>
+                                <span id="humidity">56%</span>
+                            </div>
+                            <div class="sub-item">
+                                <span class="sub-label">풍속</span>
+                                <span id="windspeed">9km/h</span>
+                            </div>
+                            <div class="sub-item">
+                                <span class="sub-label">강수확률</span>
+                                <span id="preciprob">0%</span>
+                            </div>
+                        </div>
+
+
+                        <div id="sunInfo" class="sun-info">
+                            <span>일출🌍</span class="sunriseTime"05:26><span></span>
+                            <span>일몰🦄</span class="sunsetTime"19:26><span></span>
+                        </div>
+
+                        <div id="airInfo" class="air-info">
+                            <div class="pm100Badge" class="air-badge">미세먼지 좋음</div>
+                            <div class="pm25badge" class="air-badge">초미세먼지 좋음</div>
+
+                        </div>
+
+
+
+                    </div>
+                </section>
+
+
+            </div>
+
             </main>
         </div>
     </div>
