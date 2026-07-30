@@ -127,39 +127,39 @@
             <div id="panel-summary" class="tab-pannel" role="tabpanel" >
                 <section id="currentcard" class="current-card">
                     <div id="currentContent" class="current-content">
-                        <h2 id="locationName" class="locatin">서울</h2>
-                        <p id="updateTime" class="updated">2026-07-30 10:15 기준</p>
+                        <h2 id="locationName" class="locatin">도시 이름</h2>
+                        <p id="updatedTime" class="updated">-</p>
 
 
-                        <div id="temp-row">
-                            <img src="./icons/clear-day.svg" alt="" class="weatherIcon weather-icon">
-                            <span id="temperature" class="temp">35℃</span>
+                        <div class="temp-row">
+                            <img src="" alt="" id="weatherIcon" class=" weather-icon">
+                            <span id="temperature" class="temp">--°</span>
                         </div>
                         <p id="weatherDesc" class="desc">맑음</p>
 
                         <div class="sub-info">
                             <div class="sub-item">
                                 <span class="sub-label">체감</span>
-                                <span id="feelslike">35℃</span>
+                                <span id="feelslike">--°</span>
                             </div>
                             <div class="sub-item">
                                 <span class="sub-label">습도</span>
-                                <span id="humidity">56%</span>
+                                <span id="humidity">--%</span>
                             </div>
                             <div class="sub-item">
                                 <span class="sub-label">풍속</span>
-                                <span id="windspeed">9km/h</span>
+                                <span id="windspeed">--km/h</span>
                             </div>
                             <div class="sub-item">
                                 <span class="sub-label">강수확률</span>
-                                <span id="preciprob">0%</span>
+                                <span id="preciprob">-%</span>
                             </div>
                         </div>
 
 
                         <div id="sunInfo" class="sun-info">
-                            <span>일출🌍<span class="sunriseTime">05:26</span></span>
-                            <span>일몰🦄<span class="sunsetTime">19:26</span></span>
+                            <span>일출🌍<span id="sunriseTime">--:--</span></span>
+                            <span>일몰🦄<span id="sunsetTime">--:--</span></span>
                         </div>
 
                         <div id="airInfo" class="air-info">
@@ -176,7 +176,7 @@
 
 
             </div>
-            <div id="panel-hourly" class="tab-pannel" role="tabpannel">
+            <div id="panel-hourly" class="tab-pannel" role="tabpannel" hidden>
                 <section class="hourly-list-card">
                     <div id="hourlyList" class="hourly-list">
                         <div class="hour-row">
