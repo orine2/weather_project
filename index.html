@@ -117,13 +117,13 @@
             </p>
 
 
-            <div id="tabBar" class="tab-bar" role="tablist">
+            <div id="tabBar" class="tab-bar" role="tablist" hidden>
                 <button type="button" class="tab-btn active" data-tab="summary" role="tab" aria-selected="true">주간별 날씨</button>
                 <button type="button" class="tab-btn" data-tab="hourly" role="tab" aria-selected="false">시간별 날씨</button>
             </div>
 
 
-            <div id="panel-summary" class="tab-pannel" role="tabpanel">
+            <div id="panel-summary" class="tab-pannel" role="tabpanel" hidden>
                 <section id="currentcard" class="current-card">
                     <div id="currentContent" class="current-content">
                         <h2 id="locationName" class="locatin">서울</h2>
@@ -171,8 +171,50 @@
 
                     </div>
                 </section>
+                <section id="forecastRow" class="forecast-row"></section>
 
 
+            </div>
+            <div id="panel-hourly" class="tab-pannel" role="tabpannel">
+                <section class="hourly-list-card">
+                    <div id="hourlyList" class="hourly-list">
+                        <div class="hour-row">
+                            <button type="button" class="hour-row-head" aria-expanded="false">
+                                <span class="hour-main">
+                                    <span class="hour-time-col">
+                                        <span class="hour-time">오후1시</span>
+                                        <span class="hour-desc">맑음</span>
+                                    </span>
+                                    <img src="icons/clear-day.svg" alt="" class="hour-icon">
+                                    <span class="hour-temp">30℃</span>
+                                    <span class="hour-realfeel">체감 35℃</span>
+                                    <span class="hour-precip">☔-0%</span>
+                                </span>
+                                <span class="hour-side">
+                                    <span class="hour-chevron">▼</span>
+                                </span>
+                            </button>
+                        </div>
+
+                        <div class="hour-row">
+                            <button type="button" class="hour-row-head" aria-expanded="false">
+                                <span class="hour-main">
+                                    <span class="hour-time-col">
+                                        <span class="hour-time">오후2시</span>
+                                        <span class="hour-desc">구름 조금</span>
+                                    </span>
+                                    <img src="icons/cloudy.svg" alt="" class="hour-icon">
+                                    <span class="hour-temp">30℃</span>
+                                    <span class="hour-realfeel">체감 35℃</span>
+                                    <span class="hour-precip">☔-10%</span>
+                                </span>
+                                <span class="hour-side">
+                                    <span class="hour-chevron">▼</span>
+                            
+                            
+                        </div>
+                    </div>
+                </section>
             </div>
 
             </main>

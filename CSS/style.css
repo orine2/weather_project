@@ -277,6 +277,9 @@ body {
 .footer-home a {
     color: var(--color-ink);
 }
+
+.screen[hidden] {display:none;}
+
 .screen-detail{
     display: flex;
     flex-direction: column;
@@ -361,6 +364,9 @@ body {
     flex-direction: column;
     gap: var(--sp-xl);
 }
+
+.tab-bar[hidden],
+.tab-pannel[hidden] {display: none;}
 
 .current-card{
     background-color: var(--card-bg);
@@ -472,6 +478,81 @@ body {
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     line-height: 1.6;
 }
+.hourly-list-card{
+    background-color: var(--card-bg);
+    border-radius: var(--radius-lg);
+    padding: var(--sp-sm) var(--sp-xl);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+    
+}
+.hour-row:not(:last-child) {
+    border-bottom: 1px solid rgba(38, 49, 60, 0.1);
+}
+
+.hour-row-head{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap:var(--sp-sm);
+    background: transparent;
+    border: none;
+    padding: var(--sp-lg) 0;
+    font-family: inherit;
+    color: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+.hour-main {
+    display: flex;
+    align-items: center;
+    gap:var(--sp-md);
+}
+.hour-time-col{
+    display: flex;
+    flex-direction: column;
+    min-width: 64px;
+}
+.hour-time{
+    font-size: var(--fs-md);
+    font-weight: 700;
+}
+.hour-desc {
+    font-size: var(--fs-md);
+    color: var(--color-ink-sub);
+}
+.hour-icon{
+    width: 36px;
+    height: 36px;
+
+}
+.hour-temp {
+    font-size: var(--fs-lg);
+    font-weight: 800;
+    min-width: 36px;
+}
+.hour-side {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-sm);
+}
+.hour-realfeel,
+.hour-precip{
+    font-size: var(--fs-sm);
+    color: var(--color-ink-sub);
+    white-space: nowrap;
+}
+.hour-chevron {
+    font-size: var(--fs-base);
+    color: var(--color-ink-sub);
+    display: inline-block;
+    transition: transform 200ms;
+}
+.hour-row.open .hour-chevron {
+    transform: rotate(180deg);
+}
+
+
 .footer-detail a {
     color: var(--color-white);
     
