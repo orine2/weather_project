@@ -53,6 +53,36 @@ $(function () {
         if(uv < 11) return "매우 높음";
         return "위험";
     }
+    
+
+    const FALLBACK_CITIES = {
+        
+        '서울': { lat: 37.5665, lon: 126.9780 },
+        '부산': { lat: 35.1796, lon: 129.0756 },
+        '대구': { lat: 35.8714, lon: 128.6014 },
+        '인천': { lat: 37.4563, lon: 126.7052 },
+        '광주': { lat: 35.1595, lon: 126.8526 },
+        '대전': { lat: 36.3504, lon: 127.3845 },
+        '울산': { lat: 35.5384, lon: 129.3114 },
+        '세종': { lat: 36.4800, lon: 127.2890 },
+        '수원': { lat: 37.2636, lon: 127.0286 },
+        '고양': { lat: 37.6584, lon: 126.8320 },
+        '용인': { lat: 37.2411, lon: 127.1776 },
+        '성남': { lat: 37.4449, lon: 127.1388 },
+        '청주': { lat: 36.6424, lon: 127.4890 },
+        '전주': { lat: 35.8242, lon: 127.1480 },
+        '천안': { lat: 36.8151, lon: 127.1139 },
+        '포항': { lat: 36.0190, lon: 129.3435 },
+        '창원': { lat: 35.2281, lon: 128.6811 },
+        '제주': { lat: 33.4996, lon: 126.5312 },
+        '춘천': { lat: 37.8813, lon: 127.7298 },
+        '강릉': { lat: 37.7519, lon: 128.8761 },
+        '순천': { lat: 34.9505, lon: 127.4878 }
+};
+
+
+
+    const HOME_CITIES = ['서울', '부산', '대구', '인천', '광주', '대전', '제주', '순천'];
 
     function showScreen(name) {
         $("screen-home").prop("hidden", name !== "home")
@@ -99,6 +129,25 @@ $(function () {
             showError("날씨 정보를 가져오지 못했습니다. 잠시후 다시 시도해주세요");
         })
     }
+    function loadCityList() {
+        const lat = HOME_CITIES.map(function(name) {return FALLBACK_CITIES[name],lat}).join(",");
+        const lon = HOME_CITIES.map(function(name) {return FALLBACK_CITIES[name],lon}).join(",");
+
+         $.getJSON("https://api.open-meteo.com/v1/forecast", {
+            latitude: lat,
+            longitude: lon,
+            current: "temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m,apparent_temperature",
+            hourly: 'temperature_2m,apparent_temperature,weather_code,precipitation_probability,relative_humidity_2m,wind_speed_10m,wind_direction_10m,uv_index,dew_point_2m,cloud_cover,visibility',
+            daily:"weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_probability_max",
+            forecast_days: 5,
+            timezone:"auto"
+         })
+         .done(function(results){alert("주요 도시 날씨들을 불러왔습니다");})
+         .fail(function() {alert("주요 도시 날씨를 불러오지 못했습니다.")});
+
+        console.log(lat+ "," +lon);
+    }
+    loadCityList();
 
     function renderWeather(data,dispalyName) {
         console.log(data);
@@ -201,6 +250,19 @@ $(function () {
             </div>`
         }
         $("#hourlyList").html(rows).find(".hour-detail").hide();
+    }
+
+    function cityRowTML(name, lat, long, weatherCode, tmep) {
+        const info = getWeatherInfo(weatherCode);
+
+        return `<button type="button" class="city-row">
+                        <span class="city-row-name">서울</span>
+                        <span class="city-row-weather">
+                            <img src="./icons/rain.svg" alt="" class="city-row-icon">
+                            <span class="city-row-temp">28℃</span>
+                            <span class="city-row-chevron"></span>
+                        </span>
+                    </button>`
     }
 
     function showResult() {
