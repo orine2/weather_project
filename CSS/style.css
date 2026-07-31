@@ -65,7 +65,7 @@ body {
     outline-offset: 2px;
 }
 
-.weath-icon,
+.weather-icon,
 .city-row-icon,
 .forecast-con,
 .hour-icon{
@@ -469,6 +469,14 @@ body {
 .air-badge.grade-bad { background-color: rgba(230, 150, 40, 0.15); color: #c07a10; }
 .air-badge.grade-verybad { background-color: rgba(210, 60, 60, 0.15); color: #c03030; }
 
+.forecast-row {
+    display: flex;
+    gap: var(--sp-sm);
+    overflow: auto;
+    padding-bottom: var(--sp-xs);
+    scroll-snap-type: x proximity;
+}
+
 
 
 .footer-detail {
@@ -478,6 +486,39 @@ body {
     text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
     line-height: 1.6;
 }
+
+.forecast-card {
+    flex: 1 0 0;
+    min-width: 72px;
+    background-color: var(--card-bg);
+    border-radius: var(--radius-md);
+    padding: var(--sp-lg) var(--sp-sm);
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    scroll-snap-align: start;
+    line-height: 1.6;
+}
+@media screen and (max-width:480px) {
+    .forecast-card {
+        flex: 1 0 25%;
+    }
+}
+
+.forecast-label{
+    font-size: var(--fs-md);
+    font-weight: 700;
+    color:var(--color-ink-sub);
+}
+.forecast-icon {
+    display: block;
+    width:44px;
+    height:44px;
+    margin:var(--sp-sm) auto;
+}
+
+.forecast-max {font-size:var(--fs-lg); font-weight: 700;}
+.forecast-min{font-size: var(--fs-sm); font-weight: 400;}
+.forecast-precip{margin-top:var(--sp-xs); font-size: var(--fs-sm); color: var(--color-accent);}
 .hourly-list-card{
     background-color: var(--card-bg);
     border-radius: var(--radius-lg);
