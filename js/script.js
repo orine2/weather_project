@@ -119,11 +119,10 @@ $(function () {
             let label="";
             if(i ===0) label = "오늘";
             else if(i=== 1) label = "내일";
-            else WEEKDAY[new Date(data.daily.time[i]).getDay()];
+            else label = WEEKDAY[new Date(data.daily.time[i]).getDay()];
             cards +=
-        
             `<div class="forecast-card">
-                    <p class="forecast-label">오늘</p>
+                    <p class="forecast-label">${label}</p>
                     <img src="${dayInfo.icon}" alt="" class="forecast-icon">
                     <p class="forecast-max">${Math.round(data.daily.temperature_2m_max[i])}°</p>
                     <p class="forecast-min">${Math.round(data.daily.temperature_2m_min[i])}°</p>
@@ -132,9 +131,6 @@ $(function () {
                 
         }
         $("#forecastRow").html(cards);
-
-
-
     }
     
     function renderHourly(data) {
@@ -191,8 +187,6 @@ $(function () {
             </div>`
         }
         $("#hourlyList").html(rows).find(".hour-detail").hide();
-            //.find(".hour-detail").hide();
-
     }
 
     function showResult() {
@@ -227,13 +221,8 @@ $(function () {
         row.find(".hour-detail").slideToggle(150);
 
     });
-    
-    
 
-
-
-
-  //  loadWeather( 35.1796, 129.0756 , "부산");
+    loadWeather( 35.1796, 129.0756 , "부산");
 
 //35.1796, lon: 129.0756 
 

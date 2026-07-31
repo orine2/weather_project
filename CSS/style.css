@@ -600,7 +600,7 @@ body {
     padding: 0 var(--sp-xs) var(--sp-lg);
     font-size: var(--sp-md);
 }
-.hour.detail-item{
+.hour-detail-item{
     flex:0 0 calc((100% - var(--sp-lg)*2) / 3);
     display: flex;
     flex-direction: column;

@@ -105,7 +105,7 @@
             </div>
         </div>
     </div>
-    
+
     <div id="screen-detail" class="screen screen-detail">
         <header class="detail-header">
             <button type="button" id="backBtn" class="back-btn"> 목록으로</button>
@@ -116,7 +116,6 @@
                     날씨 정보를 불러오는 중....
                 </p>
 
-
                 <div id="tabBar" class="tab-bar" role="tablist">
                     <button type="button" class="tab-btn active" data-tab="summary" role="tab" aria-selected="true">주간별
                         날씨</button>
@@ -124,11 +123,10 @@
                         날씨</button>
                 </div>
 
-
                 <div id="panel-summary" class="tab-pannel" role="tabpanel">
                     <section id="currentcard" class="current-card">
                         <div id="currentContent" class="current-content">
-                            <h2 id="locationName" class="locatin">도시 이름</h2>
+                            <h2 id="locationName" class="location">도시 이름</h2>
                             <p id="updatedTime" class="updated">-</p>
 
 
@@ -170,28 +168,18 @@
                             </div>
                         </div>
                     </section>
-                    <section id="forecastRow" class="forecast-row">
+                    <section id="forecastRow" class="forecast-row"></section>
                 </div>
                 </section>
                 <div id="panel-hourly" class="tab-pannel" role="tabpannel" hidden>
                     <section class="hourly-list-card">
                         <div id="hourlyList" class="hourly-list">
-                            
-                                </div>
-                            </div>
 
-                            
-
-
-                            </div>
                         </div>
                     </section>
                 </div>
-
+            </main>
         </div>
-
-
-        </main>
 
         <div class="footer-detail">
             <p>Data by <a href="https://open-meteo.com" target="_blank">Open-Meteo</a></p>
