@@ -30,7 +30,7 @@ $(function () {
         const period = hour < 12 ? "오전" : "오후";
 
         let h12= hour % 12;
-        if(h12 == 0) h12 == 12;
+        if(h12 == 0) h12 = 12;
         return period + " " +h12 + "시";
     }
 
@@ -78,6 +78,7 @@ $(function () {
         })
         .done(function(data) {
             renderWeather(data,dispalyName);
+            renderHourly(data);
             showResult();
         })
         .fail(function() {
@@ -141,7 +142,7 @@ $(function () {
         const HOURT_TO_SHOW = 12;
 
         let startIndex = 0;
-        for(let h = 0; h < hourly.time/length; h++) {
+        for(let h = 0; h < hourly.time.length; h++) {
             if(hourly.time[h] >= data.current.time) {
                 startIndex =h;
                 break;
@@ -149,36 +150,48 @@ $(function () {
         }
 
         let rows = "";
+        for(let n = 0; n< HOURT_TO_SHOW; n++) {
+            const idx = startIndex + n;
+            if(idx >= hourly.time.length) break;
+
+            const info =getWeatherInfo(hourly.weather_code[idx]);
+
+            const uv = hourly.uv_index[idx];
+            const uvText = (uv === null || uv === undefined) ? "-": uv.toFixed(1) + "(" + uvLabel(uv) +")";
+            const vis = hourly.visibility [idx];
+            const visText = (vis === null || vis === undefined) ? "-" : (vis/1000).toFixed(1) + "km";
+        
 
         rows +=
             `<div class="hour-row">
                 <button type="button" class="hour-row-head" aria-expanded="false">
                     <span class="hour-main">
                         <span class="hour-time-col">
-                            <span class="hour-time">오후1시</span>
-                            <span class="hour-desc">맑음</span>
+                            <span class="hour-time">${formatHourLabel(hourly.time[idx])}</span>
+                            <span class="hour-desc">${info.label}</span>
                         </span>
-                        <img src="icons/clear-day.svg" alt="" class="hour-icon">
-                        <span class="hour-temp">30℃</span>
-                        <span class="hour-realfeel">체감 35℃</span>
-                        <span class="hour-precip">☔-0%</span>
+                        <img src="${info.icon}" alt="" class= "hour-icon">
+                        <span class="hour-temp">${safeRound(hourly.temperature_2m[idx])}°</span>
+                        <span class="hour-realfeel">${safeRound(hourly.apparent_temperature[idx])}°</span>
+                        <span class="hour-precip">${safeRound(hourly.precipitation_probability[idx])}%</span>
                     </span>
                     <span class="hour-side">
                         <span class="hour-chevron">▼</span>
                     </span>
                 </button>
+
                 <div class="hour-detail">
                     <div class="hour-detail-item"><span>바람</span><strong>서북서 7km/h</strong></div>
-                    <div class="hour-detail-item"><span>습도</span><strong>63%</strong></div>
-                    <div class="hour-detail-item"><span>자외선지수</span><strong>7.9(높음)</strong></div>
-                    <div class="hour-detail-item"><span>이슬점</span><strong>22°</strong></div>
-                    <div class="hour-detail-item"><span>구름량</span><strong>26%</strong></div>
-                    <div class="hour-detail-item"><span>가시거리</span><strong>32.7km</strong></div>
+                    <div class="hour-detail-item"><span>습도</span><strong>${safeRound(hourly.relative_humidity_2m[idx])}%</strong></div>
+                    <div class="hour-detail-item"><span>자외선지수</span><strong>${uvText}</strong></div>
+                    <div class="hour-detail-item"><span>이슬점</span><strong>${safeRound(hourly.dew_point_2m[idx])}°</strong></div>
+                    <div class="hour-detail-item"><span>구름량</span><strong>${safeRound(hourly.cloud_cover[idx])}%</strong></div>
+                    <div class="hour-detail-item"><span>가시거리</span><strong>${visText}</strong></div>
                 </div>
             </div>`
-
-        $("#hourlylist").html(rows).find(".hour-detail").hide();
-
+        }
+        $("#hourlyList").html(rows).find(".hour-detail").hide();
+            //.find(".hour-detail").hide();
 
     }
 
@@ -191,7 +204,7 @@ $(function () {
         $("#panel-hourly").prop("hidden", activeTab !== "hourly");
     }
 
-    loadWeather( 37.5665, 126.9780, "서울");
+    
 
     $("searchForm").on("submit",function(e) {
         e.preventDeafult();
@@ -207,8 +220,22 @@ $(function () {
 
     });
 
+    $("#hourlyList").on("click", ".hour-row-head", function() {
+        const row = $(this).closest(".hour-row");
+        row.toggleClass("open");
+        $(this).attr("aria-expanded", row.hasClass("open") ? "true" : "false");
+        row.find(".hour-detail").slideToggle(150);
+
+    });
     
     
+
+
+
+
+  //  loadWeather( 35.1796, 129.0756 , "부산");
+
+//35.1796, lon: 129.0756 
 
 });
 

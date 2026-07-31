@@ -38,7 +38,7 @@
     </section>
 
 
-    <div class="screen-home screen" hidden>
+    <div id="screen-home" class=" screen" hidden>
         <div class="page-content">
             <div class="page-content-inner">
                 <div class="home-top">
@@ -47,7 +47,7 @@
                             🌈내 위치 날씨 보기
                         </button>
                         <p class="my-location-hint">
-                        위치를 허용하면 내 동내의 현재 날씨가 여기의 나타납니다.
+                            위치를 허용하면 내 동내의 현재 날씨가 여기의 나타납니다.
                         </p>
                     </section>
 
@@ -58,7 +58,7 @@
                                 <span class="extream-lable">🔥오늘 가장 더운 곳</span>
                                 <span class="extream-vaule">강릉 39℃</span>
                             </button>
-                        
+
                             <button type="button" class="extream-card">
                                 <span class="extream-lable">❄️오늘 가장 추운 곳</span>
                                 <span class="extream-vaule">대전 23℃</span>
@@ -72,33 +72,31 @@
                 <div id="cityList" class="city-list">
 
                     <button type="button" class="city-row">
-                    <span class="city-row-name">서울</span>
-                    <span class="city-row-weather">
-                        <img src="./icons/rain.svg" alt="" class="city-row-icon">
-                        <span class="city-row-temp">28℃</span>
-                        <span class="city-row-chevron"></span>
-                    </span>
+                        <span class="city-row-name">서울</span>
+                        <span class="city-row-weather">
+                            <img src="./icons/rain.svg" alt="" class="city-row-icon">
+                            <span class="city-row-temp">28℃</span>
+                            <span class="city-row-chevron"></span>
+                        </span>
                     </button>
 
                     <button type="button" class="city-row">
-                    <span class="city-row-name">서울</span>
-                    <span class="city-row-weather">
-                        <img src="./icons/rain.svg" alt="" class="city-row-icon">
-                        <span class="city-row-temp">28℃</span>
-                        <span class="city-row-chevron"></span>
-                    </span>
+                        <span class="city-row-name">서울</span>
+                        <span class="city-row-weather">
+                            <img src="./icons/rain.svg" alt="" class="city-row-icon">
+                            <span class="city-row-temp">28℃</span>
+                            <span class="city-row-chevron"></span>
+                        </span>
                     </button>
 
                     <button type="button" class="city-row">
-                    <span class="city-row-name">서울</span>
-                    <span class="city-row-weather">
-                        <img src="./icons/rain.svg" alt="" class="city-row-icon">
-                        <span class="city-row-temp">28℃</span>
-                        <span class="city-row-chevron"></span>
-                    </span>
+                        <span class="city-row-name">서울</span>
+                        <span class="city-row-weather">
+                            <img src="./icons/rain.svg" alt="" class="city-row-icon">
+                            <span class="city-row-temp">28℃</span>
+                            <span class="city-row-chevron"></span>
+                        </span>
                     </button>
-
-                    
                 </div>
                 <div class="footer-home">
                     <p>Data by <a href="https://open-meteo.com" target="_blank">Open-Meteo</a></p>
@@ -107,7 +105,8 @@
             </div>
         </div>
     </div>
-    <div id="screen-detail" class="screen screen-detail" >
+    
+    <div id="screen-detail" class="screen screen-detail">
         <header class="detail-header">
             <button type="button" id="backBtn" class="back-btn"> 목록으로</button>
         </header>
@@ -115,129 +114,88 @@
             <main>
                 <p id="statusMsg" class="status-msg" role="status" hidden>
                     날씨 정보를 불러오는 중....
-            </p>
+                </p>
 
 
-            <div id="tabBar" class="tab-bar" role="tablist" >
-                <button type="button" class="tab-btn active" data-tab="summary" role="tab" aria-selected="true">주간별 날씨</button>
-                <button type="button" class="tab-btn" data-tab="hourly" role="tab" aria-selected="false">시간별 날씨</button>
-            </div>
+                <div id="tabBar" class="tab-bar" role="tablist">
+                    <button type="button" class="tab-btn active" data-tab="summary" role="tab" aria-selected="true">주간별
+                        날씨</button>
+                    <button type="button" class="tab-btn" data-tab="hourly" role="tab" aria-selected="false">시간별
+                        날씨</button>
+                </div>
 
 
-            <div id="panel-summary" class="tab-pannel" role="tabpanel" >
-                <section id="currentcard" class="current-card">
-                    <div id="currentContent" class="current-content">
-                        <h2 id="locationName" class="locatin">도시 이름</h2>
-                        <p id="updatedTime" class="updated">-</p>
+                <div id="panel-summary" class="tab-pannel" role="tabpanel">
+                    <section id="currentcard" class="current-card">
+                        <div id="currentContent" class="current-content">
+                            <h2 id="locationName" class="locatin">도시 이름</h2>
+                            <p id="updatedTime" class="updated">-</p>
 
 
-                        <div class="temp-row">
-                            <img src="" alt="" id="weatherIcon" class=" weather-icon">
-                            <span id="temperature" class="temp">--°</span>
-                        </div>
-                        <p id="weatherDesc" class="desc">맑음</p>
-
-                        <div class="sub-info">
-                            <div class="sub-item">
-                                <span class="sub-label">체감</span>
-                                <span id="feelslike">--°</span>
+                            <div class="temp-row">
+                                <img src="" alt="" id="weatherIcon" class=" weather-icon">
+                                <span id="temperature" class="temp">--°</span>
                             </div>
-                            <div class="sub-item">
-                                <span class="sub-label">습도</span>
-                                <span id="humidity">--%</span>
+                            <p id="weatherDesc" class="desc">맑음</p>
+
+                            <div class="sub-info">
+                                <div class="sub-item">
+                                    <span class="sub-label">체감</span>
+                                    <span id="feelslike">--°</span>
+                                </div>
+                                <div class="sub-item">
+                                    <span class="sub-label">습도</span>
+                                    <span id="humidity">--%</span>
+                                </div>
+                                <div class="sub-item">
+                                    <span class="sub-label">풍속</span>
+                                    <span id="windspeed">--km/h</span>
+                                </div>
+                                <div class="sub-item">
+                                    <span class="sub-label">강수확률</span>
+                                    <span id="preciprob">-%</span>
+                                </div>
                             </div>
-                            <div class="sub-item">
-                                <span class="sub-label">풍속</span>
-                                <span id="windspeed">--km/h</span>
+
+
+                            <div id="sunInfo" class="sun-info">
+                                <span>일출🌍<span id="sunriseTime">--:--</span></span>
+                                <span>일몰🦄<span id="sunsetTime">--:--</span></span>
                             </div>
-                            <div class="sub-item">
-                                <span class="sub-label">강수확률</span>
-                                <span id="preciprob">-%</span>
+
+                            <div id="airInfo" class="air-info">
+                                <div id="pm100Badge" class="air-badge grade-good">미세먼지 좋음</div>
+                                <div id="pm25badge" class="air-badge grade-bad">초미세먼지 나쁨</div>
+
                             </div>
                         </div>
-
-
-                        <div id="sunInfo" class="sun-info">
-                            <span>일출🌍<span id="sunriseTime">--:--</span></span>
-                            <span>일몰🦄<span id="sunsetTime">--:--</span></span>
-                        </div>
-
-                        <div id="airInfo" class="air-info">
-                            <div id="pm100Badge" class="air-badge grade-good">미세먼지 좋음</div>
-                            <div id="pm25badge" class="air-badge grade-bad">초미세먼지 나쁨</div>
-
-                        </div>
-
-
-
-                    </div>
+                    </section>
+                    <section id="forecastRow" class="forecast-row">
+                </div>
                 </section>
-                <section id="forecastRow" class="forecast-row">
-                    
-                    </div>
-                </section>
-
-
-            </div>
-            <div id="panel-hourly" class="tab-pannel" role="tabpannel" hidden>
-                <section class="hourly-list-card">
-                    <div id="hourlyList" class="hourly-list">
-                        <div class="hour-row open">
-                            <button type="button" class="hour-row-head" aria-expanded="true">
-                                <span class="hour-main">
-                                    <span class="hour-time-col">
-                                        <span class="hour-time">오후1시</span>
-                                        <span class="hour-desc">맑음</span>
-                                    </span>
-                                    <img src="icons/clear-day.svg" alt="" class="hour-icon">
-                                    <span class="hour-temp">30℃</span>
-                                    <span class="hour-realfeel">체감 35℃</span>
-                                    <span class="hour-precip">☔-0%</span>
-
-
-                                    
-                                        
-                                    </div>
-                                </span>
-                                <span class="hour-side">
-                                    <span class="hour-chevron">▼</span>
-                                </span>
-                            </button>
-                            <div class="hour-detail">
-                                        <div class="hour-detail-item"><span>바람</span><strong>서북서 7km/h</strong></div>
-                                        <div class="hour-detail-item"><span>습도</span><strong>63%</strong></div>
-                                        <div class="hour-detail-item"><span>자외선지수</span><strong>7.9(높음)</strong></div>
-                                        <div class="hour-detail-item"><span>이슬점</span><strong>22°</strong></div>
-                                        <div class="hour-detail-item"><span>구름량</span><strong>26%</strong></div>
-                                        <div class="hour-detail-item"><span>가시거리</span><strong>32.7km</strong></div>
-                        </div>
-
-                        <div class="hour-row">
-                            <button type="button" class="hour-row-head" aria-expanded="false">
-                                <span class="hour-main">
-                                    <span class="hour-time-col">
-                                        <span class="hour-time">오후2시</span>
-                                        <span class="hour-desc">구름 조금</span>
-                                    </span>
-                                    <img src="icons/cloudy.svg" alt="" class="hour-icon">
-                                    <span class="hour-temp">30℃</span>
-                                    <span class="hour-realfeel">체감 35℃</span>
-                                    <span class="hour-precip">☔-10%</span>
-                                </span>
-                                <span class="hour-side">
-                                    <span class="hour-chevron">▼</span>
+                <div id="panel-hourly" class="tab-pannel" role="tabpannel" hidden>
+                    <section class="hourly-list-card">
+                        <div id="hourlyList" class="hourly-list">
                             
+                                </div>
+                            </div>
+
                             
+
+
+                            </div>
                         </div>
-                    </div>
-                </section>
-            </div>
+                    </section>
+                </div>
 
-            </main>
+        </div>
 
-            <div class="footer-detail">
-                    <p>Data by <a href="https://open-meteo.com" target="_blank">Open-Meteo</a></p>
-                    <p>순천효산고 김한결</p>
+
+        </main>
+
+        <div class="footer-detail">
+            <p>Data by <a href="https://open-meteo.com" target="_blank">Open-Meteo</a></p>
+            <p>순천효산고 김한결</p>
 
         </div>
     </div>
