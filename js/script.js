@@ -54,6 +54,20 @@ $(function () {
         return "위험";
     }
 
+    function showScreen(name) {
+        $("screen-home").prop("hidden", name !== "home")
+        $("screen-detail").prop("hidden", name !== "detail")
+
+        if(name === "home") {
+            $("body"). attr("data-weather", "sunny");
+        }
+    }
+
+    function openDetail(lat, lon, name) {
+        showScreen("detail");
+        loadWeather(lat, lon, name);
+    }
+
     function showStatus(msg) {
         $("#statusMsg").text(msg).prop("hidden", false);
         $("#tabBar").prop("hidden",true);
@@ -204,6 +218,11 @@ $(function () {
         e.preventDeafult();
 
     });
+
+
+    $("#backBtn").on("click", function() {
+        showScreen("home");
+    });
     $("#tabBar").on("click", ".tab-btn" , function(){
         const tab= $(this).data("tab");
 
@@ -222,9 +241,11 @@ $(function () {
 
     });
 
-    loadWeather( 35.1796, 129.0756 , "부산");
+  //  loadWeather( 35.1796, 129.0756 , "부산");
 
 //35.1796, lon: 129.0756 
+
+    showScreen("home");
 
 });
 
