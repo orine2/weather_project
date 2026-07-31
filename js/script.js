@@ -16,6 +16,7 @@ $(function () {
         }
         return { icon: 'icons/thermometer.svg', label: '알 수 없음', theme: 'sunny' };
     }
+
     function safeRound(value, suffix) {
         if(value === null || value === undefined) return '-';
         return Math.round(value) + (suffix || "") ;
@@ -23,8 +24,36 @@ $(function () {
     function formatClock(isoTIme) {
         return isoTIme.split("T")[1];
     }
+    function formatHourLabel(isoTime) { 
+        let time = isoTime.split("T")[1];
+        const hour = parseInt(time.split(":") [0]);
+        const period = hour < 12 ? "오전" : "오후";
 
-    
+        let h12= hour % 12;
+        if(h12 == 0) h12 == 12;
+        return period + " " +h12 + "시";
+    }
+
+
+    function degToCompass (deg) { 
+        if(deg== null || deg === undefined) return "";
+
+        const dirs = [
+            "북", "북북동", "북동", "동북동", "동", "동남동", "남동", "남남동",
+            "남", "남남서", "남서", "서남서", "서", "서북서", "북서", "북북서"
+        ];
+
+        return dirs[Math.round(deg / 22.5) % 16];
+    }
+
+    function uvLabel (uv) {
+        if(uv < 3) return "낮음";
+        if(uv < 6) return "보통";
+        if(uv < 8) return "높음";
+        if(uv < 11) return "매우 높음";
+        return "위험";
+    }
+
     function showStatus(msg) {
         $("#statusMsg").text(msg).prop("hidden", false);
         $("#tabBar").prop("hidden",true);
@@ -42,6 +71,7 @@ $(function () {
             latitude: lat,
             longitude: lon,
             current: "temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m,apparent_temperature",
+            hourly: 'temperature_2m,apparent_temperature,weather_code,precipitation_probability,relative_humidity_2m,wind_speed_10m,wind_direction_10m,uv_index,dew_point_2m,cloud_cover,visibility',
             daily:"weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,precipitation_probability_max",
             forecast_days: 5,
             timezone:"auto"
@@ -102,6 +132,52 @@ $(function () {
         }
         $("#forecastRow").html(cards);
 
+
+
+    }
+    
+    function renderHourly(data) {
+        const hourly = data.hourly;
+        const HOURT_TO_SHOW = 12;
+
+        let startIndex = 0;
+        for(let h = 0; h < hourly.time/length; h++) {
+            if(hourly.time[h] >= data.current.time) {
+                startIndex =h;
+                break;
+            }
+        }
+
+        let rows = "";
+
+        rows +=
+            `<div class="hour-row">
+                <button type="button" class="hour-row-head" aria-expanded="false">
+                    <span class="hour-main">
+                        <span class="hour-time-col">
+                            <span class="hour-time">오후1시</span>
+                            <span class="hour-desc">맑음</span>
+                        </span>
+                        <img src="icons/clear-day.svg" alt="" class="hour-icon">
+                        <span class="hour-temp">30℃</span>
+                        <span class="hour-realfeel">체감 35℃</span>
+                        <span class="hour-precip">☔-0%</span>
+                    </span>
+                    <span class="hour-side">
+                        <span class="hour-chevron">▼</span>
+                    </span>
+                </button>
+                <div class="hour-detail">
+                    <div class="hour-detail-item"><span>바람</span><strong>서북서 7km/h</strong></div>
+                    <div class="hour-detail-item"><span>습도</span><strong>63%</strong></div>
+                    <div class="hour-detail-item"><span>자외선지수</span><strong>7.9(높음)</strong></div>
+                    <div class="hour-detail-item"><span>이슬점</span><strong>22°</strong></div>
+                    <div class="hour-detail-item"><span>구름량</span><strong>26%</strong></div>
+                    <div class="hour-detail-item"><span>가시거리</span><strong>32.7km</strong></div>
+                </div>
+            </div>`
+
+        $("#hourlylist").html(rows).find(".hour-detail").hide();
 
 
     }
