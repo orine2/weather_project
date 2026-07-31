@@ -135,6 +135,8 @@ body {
 }
 .search-form button:hover {opacity: 0.85;}
 
+.screen[hidden] {display: flex;}
+
 .page-content {
     background: var(--home-bg);
     padding: var(--sp-2xl) var(--sp-lg) var(--sp-4xl);
