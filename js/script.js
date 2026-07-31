@@ -177,7 +177,7 @@ $(function () {
                 </button>
 
                 <div class="hour-detail">
-                    <div class="hour-detail-item"><span>바람</span><strong>서북서 7km/h</strong></div>
+                    <div class="hour-detail-item"><span>바람</span><strong>${degToCompass(hourly.wind_direction_10m[idx])}${safeRound(hourly.wind_speed_10m[idx])}km/h</strong></div>
                     <div class="hour-detail-item"><span>습도</span><strong>${safeRound(hourly.relative_humidity_2m[idx])}%</strong></div>
                     <div class="hour-detail-item"><span>자외선지수</span><strong>${uvText}</strong></div>
                     <div class="hour-detail-item"><span>이슬점</span><strong>${safeRound(hourly.dew_point_2m[idx])}°</strong></div>
