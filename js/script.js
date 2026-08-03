@@ -85,8 +85,8 @@ $(function () {
     const HOME_CITIES = ['서울', '부산', '대구', '인천', '광주', '대전', '제주', '순천'];
 
     function showScreen(name) {
-        $("screen-home").prop("hidden", name !== "home")
-        $("screen-detail").prop("hidden", name !== "detail")
+        $("#screen-home").prop("hidden", name !== "home")
+        $("#screen-detail").prop("hidden", name !== "detail")
 
         if(name === "home") {
             $("body"). attr("data-weather", "sunny");
@@ -94,6 +94,7 @@ $(function () {
     }
 
     function openDetail(lat, lon, name) {
+        
         showScreen("detail");
         loadWeather(lat, lon, name);
     }
@@ -161,23 +162,43 @@ $(function () {
                     results[i].current.temperature_2m
                 );
 
-                if(results[i].daily.temperature_2m_max[0] > results[hotIdx].daily.temperature_2m_max) {
+                if(results[i].daily.temperature_2m_max[0] > results[hotIdx].daily.temperature_2m_max [0]) {
                     hotIdx = i;
 
                 }
-                if(results[i].daily.temperature_2m_min[0] < results[coldIdx].daily.temperature_2m_max) {
+                if(results[i].daily.temperature_2m_min[0] < results[coldIdx].daily.temperature_2m_min [0]) {
                     coldIdx = i;
                 }
             }
 
 
             $("#cityList").html(rows);
+
+            const hotName = HOME_CITIES[hotIdx];
+            const coldName = HOME_CITIES[coldIdx];
+            const hotCity = FALLBACK_CITIES[hotName];
+            const coldCity = FALLBACK_CITIES[coldName];
+
+
+            $("#hotCity").data({
+                name:hotName,
+                lat:hotCity.lat,
+                lon:hotCity.lon
+            });
+            $("#hotCity .extream-value")
+                .html(hotName + " " + safeRound(results[hotIdx].daily.temperature_2m_max[0]) +"°");
+            
+            
+            $("#coldCity")
+            .data({name: coldName, lat:coldCity.lat, lon:coldCity.lon})
+            .find(".extream-value")
+            .html(coldName+ " " + safeRound(results[coldIdx].daily.temperature_2m_min[0]) + "°");
+
          })
          .fail(function() {alert("주요 도시 날씨를 불러오지 못했습니다.")});
 
         console.log(lat+ "," +lon);
     }
-    loadCityList();
 
     function renderWeather(data,dispalyName) {
         console.log(data);
@@ -282,14 +303,14 @@ $(function () {
         $("#hourlyList").html(rows).find(".hour-detail").hide();
     }
 
-    function cityRowTML(name, lat, long, weatherCode, tmep) {
+    function cityRowTML(name, lat, lon, weatherCode, temp) {
         const info = getWeatherInfo(weatherCode);
 
-        return `<button type="button" class="city-row" "${name}data-name=" "${name}data-lat" "${name}data-lon">
+        return `<button type="button" class="city-row" data-name="${name}" data-lat="${lat}" data-lon="${lon}">
                         <span class="city-row-name">${name}</span>
                         <span class="city-row-weather">
                             <img src="${info.icon}" alt="" class="city-row-icon">
-                            <span class="city-row-temp"${safeRound(temp)}℃</span>
+                            <span class="city-row-temp">${safeRound(temp)}℃</span>
                             <span class="city-row-chevron"></span>
                         </span>
                     </button>`
@@ -304,16 +325,44 @@ $(function () {
         $("#panel-hourly").prop("hidden", activeTab !== "hourly");
     }
 
-    
+    function searchCity(rawQuery) {
+        const query =$.trim(rawQuery);
+        if(!query) return;
+        
+        
+        if(FALLBACK_CITIES[query]) {
+            const c= FALLBACK_CITIES[query];
+            $("#cityInput").val("");
+            openDetail(c.lat, c.lon, query);
+            return;
+        }
 
-    $("searchForm").on("submit",function(e) {
-        e.preventDeafult();
+        showScreen("detail");
+        showStatus(`"${query}"`);
+        
+        $.getJSON("https://gecording.")
+        
+    }
+
+    
+    
+    
+    $("#searchForm").on("submit",function(e) {
+        e.preventDefault();
+        searchCity($("#cityInput"). val());
 
     });
+
+    $(".page-content").on("click",".city-row, .extream-card", function (){
+        const btn = $(this);
+        openDetail(btn.data("lat"), btn.data("lon"),btn.data("name"));
+        console.log([btn.data("lat"), btn.data("lon"),btn.data("name")]);
+    })
 
 
     $("#backBtn").on("click", function() {
         showScreen("home");
+        loadCityList();
     });
     $("#tabBar").on("click", ".tab-btn" , function(){
         const tab= $(this).data("tab");
@@ -338,6 +387,7 @@ $(function () {
 //35.1796, lon: 129.0756 
 
     showScreen("home");
+    loadCityList();
 
 });
 
