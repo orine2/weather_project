@@ -170,6 +170,7 @@ $(function () {
                     coldIdx = i;
                 }
             }
+            
 
 
             $("#cityList").html(rows);
@@ -316,6 +317,89 @@ $(function () {
                     </button>`
     }
 
+    function loadMyLocation(){
+        if(!navigator.geolocation) {
+            $("#myLocation").html("<p class='my-location-msg'>이 브라우저는 위치 기능을 지원하지 않습니다 </p>");
+
+        }
+        $("#myLocation").html("<p class='my-location-msg'>내 위치를 찾는중...</p>");
+
+        navigator.geolocation.getCurrentPosition(
+            function(pos) {
+                const lat = pos.coords.latitude.toFixed(4);
+                const lon = pos.coords.longitude.toFixed(4);
+
+
+                $.getJSON("https://api.open-meteo.com/v1/forecast", {
+                latitude: lat,
+                longitude: lon,
+                current: "temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m,apparent_temperature",
+                daily:"precipitation_probability_max,sunrise,sunset",
+                forecast_days: 5,
+                timezone:"auto"
+            })
+            .done(function(res) {
+                renderMyLocation(res, lat, lon);
+            })
+            .fail(function() { $("#myLocation"). html("<p class='my-location-msg'>내 위치 날씨를 불러오지 못했습니다.</p>");});
+            },
+            function () {
+                $("#myLocation").html("<p class= 'my-location-msg'> 위치 권한이 필요합니다. 브라우저 설정을 확인해주세요. </p>");
+            });
+}
+    function renderMyLocation(res, lat, lon) {
+        const cur = res.current;
+        const info = getWeatherInfo(cur.weather_code);
+
+        $("#myLocation").html(
+            `<div class="current-card my-location-card data-name="내 위치" data-lat="${lat}" data-lon="${lon}">
+                            <div class="current-content">
+                                <h2 class="location">🌈내 위치</h2>
+                                <p class="updated">${cur.time.replace("T", " ") + "기준"}</p>
+
+                                <div class="temp-row">
+                                    <img src="${info.icon}" alt="" class=" weather-icon">
+                                    <span class="temp">${safeRound(cur.temperature_2m)}°</span>
+                                </div>
+                                
+                                <p class="desc">${info.label}</p>
+                                <div class="sub-info">
+                                    <div class="sub-item">
+                                        <span class="sub-label">체감</span>
+                                        <span>${safeRound(cur.relative_humidity_2m)}°</span>
+                                    </div>
+                                    <div class="sub-item">
+                                        <span class="sub-label">습도</span>
+                                        <span>${safeRound(cur.wind_speed_10m)}%</span>
+                                    </div>
+                                    <div class="sub-item">
+                                        <span class="sub-label">풍속</span>
+                                        <span>${safeRound(cur.wind_speed_10m)} km/h</span>
+                                    </div>
+                                    <div class="sub-item">
+                                        <span class="sub-label">강수확률</span>
+                                        <span>-${safeRound(res.daily.precipitation_probability_max[0])}%</span>
+                                    </div>
+                                </div>
+
+
+                                <div class="sun-info">
+                                    <span>일출🌍<span>${formatClock(res.daily.sunrise[0])}</span></span>
+                                    <span>일몰🦄<span>${formatClock(res.daily.sunset[0])}</span></span>
+                                </div>
+
+                                <div id="airInfo" class="air-info">
+                                    <div class="air-badge grade-good">미세먼지 좋음</div>
+                                    <div class="air-badge grade-bad">초미세먼지 나쁨</div>
+                                </div>
+                            </div>
+                        </div>`
+        )
+
+        
+    }
+    
+
     function showResult() {
         $("#statusMsg").prop("hidden",true);
         $("#tabBar").prop("hidden",false);
@@ -369,6 +453,10 @@ $(function () {
         e.preventDefault();
         searchCity($("#cityInput"). val());
 
+    });
+
+    $("#myLocation").on("click", ".my-location-btn", function(){
+        loadMyLocation();
     });
 
     $(".page-content").on("click",".city-row, .extream-card", function (){
