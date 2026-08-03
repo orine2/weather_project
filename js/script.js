@@ -53,6 +53,17 @@ $(function () {
         if(uv < 11) return "매우 높음";
         return "위험";
     }
+
+    const PM10_THRESHOLDS = [30, 80, 150];
+    const PM25_THRESHOLDS = [15, 35, 75];
+
+    function pmGrade(value, thresholds) {
+        if (value === null || value === undefined) return { label: '정보 없음', className: '' };
+        if (value <= thresholds[0]) return { label: '좋음', className: 'grade-good' };
+        if (value <= thresholds[1]) return { label: '보통', className: 'grade-normal' };
+        if (value <= thresholds[2]) return { label: '나쁨', className: 'grade-bad' };
+        return { label: '매우나쁨', className: 'grade-verybad' };
+    }
     
 
     const FALLBACK_CITIES = {
@@ -108,8 +119,12 @@ $(function () {
     function showError(msg) {
         showStatus(" 🚨" +msg);
     }
+    let requestSeq = 0;
 
     function loadWeather(lat, lon, dispalyName) {
+        requestSeq++;
+        const seq = requestSeq;
+
         showStatus("날씨 정보를 불러오는 중입니다......");
 
         $.getJSON("https://api.open-meteo.com/v1/forecast", {
@@ -122,6 +137,7 @@ $(function () {
             timezone:"auto"
         })
         .done(function(data) {
+            
             renderWeather(data,dispalyName);
             renderHourly(data);
             showResult();
@@ -129,6 +145,7 @@ $(function () {
         .fail(function() {
             showError("날씨 정보를 가져오지 못했습니다. 잠시후 다시 시도해주세요");
         })
+        loadAirQuality(lat, lon, seq);
     }
     function loadCityList() {
         const lat = HOME_CITIES.map(function(name) {return FALLBACK_CITIES[name].lat}).join(",");
@@ -398,7 +415,32 @@ $(function () {
 
         
     }
-    
+
+    function loadAirQuality(lat, lon, seq) {
+        $("#pm10Badge").text("미세먼지 확인 중").addClass("air-badge");
+        $("#pm25Badge").text("초미세먼지 확인 중").addClass("air-badge");
+
+        $.getJSON("https://air-quality-api.open-meteo.com/v1/air-quality",{
+            latitude: lat,
+            longitude: lon,
+            current:"pm10,pm2_5",
+            timezone:"auto"
+        })
+        .done(function(data) {
+            if(seq !== requestSeq) return;
+
+            const pm10Grade = pmGrade(data.current.pm10, PM10_THRESHOLDS);
+            const pm25Grade = pmGrade(data.current.pm2_5, PM25_THRESHOLDS);
+            $("#pm10Badge").text("미세먼지 " +pm10Grade.label).addClass(pm10Grade.className);
+            $("#pm25Badge").text("초미세먼지 " +pm25Grade.label).addClass(pm25Grade.className);
+        })
+        .fail(function() {
+            if(seq !== requestSeq) return;
+
+            $("#pm10Badge").text("미세먼지 정보 없음");
+            $("#pm25Badge").text("초미세먼지 정보 없음");
+    });
+}
 
     function showResult() {
         $("#statusMsg").prop("hidden",true);
