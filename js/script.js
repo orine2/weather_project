@@ -459,10 +459,9 @@ $(function () {
         loadMyLocation();
     });
 
-    $(".page-content").on("click",".city-row, .extream-card", function (){
+    $(".page-content").on("click",".city-row, .extream-card, .my-location-card", function (){
         const btn = $(this);
         openDetail(btn.data("lat"), btn.data("lon"),btn.data("name"));
-        console.log([btn.data("lat"), btn.data("lon"),btn.data("name")]);
     })
 
 
