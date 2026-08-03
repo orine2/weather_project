@@ -340,7 +340,25 @@ $(function () {
         showScreen("detail");
         showStatus(`"${query}"`);
         
-        $.getJSON("https://gecording.")
+        $.getJSON("https://geocoding-api.open-meteo.com/v1/search", {
+            name:query,
+            count:1,
+            language:"ko",
+            format:"json"
+
+
+        })
+        .done(function(result) {
+            if(res.results && res.results,length > 0){
+                const city = res.results[0];
+                $("#cityInput").val("");
+                openDetail(city.latitude, city.longitude, city.name)
+            }
+                else {
+                    showStatus(`"${query}"의 검색 결과가 없습니다. 영문 도시 명으로 시도해보세요.`);
+                }  
+            })
+        .fail(function(){ showStatus("검색에 실패했습니다. 네트워크 상태를 확인해주세요.");});
         
     }
 
