@@ -38,30 +38,36 @@
     </section>
 
 
-    <div id="screen-home" class=" screen" >
+    <div id="screen-home" class=" screen">
         <div class="page-content">
             <div class="page-content-inner">
                 <div class="home-top">
-                    <section id="mylocation" class="my-location">
-                        <button type="button" id="mylocationBtn" class="my-location-btn">
+                    <section id="myLocation" class="my-location">
+                        
+                        <button type="button" id="myLocationBtn" class="my-location-btn">
                             🌈내 위치 날씨 보기
                         </button>
                         <p class="my-location-hint">
                             위치를 허용하면 내 동내의 현재 날씨가 여기의 나타납니다.
                         </p>
+                    
+
+
+                       
+
                     </section>
 
                     <div class="home-top-right">
                         <h2 class="section-title"> 오늘의 전국 최고/최저</h2>
-                        <div id="extremRow" class="extream-row">
-                            <button type="button" class="extream-card">
+                        <div id="extreamRow" class="extream-row">
+                            <button type="button" class="extream-card" id="hotCity">
                                 <span class="extream-lable">🔥오늘 가장 더운 곳</span>
-                                <span class="extream-vaule">강릉 39℃</span>
+                                <span class="extream-value">강릉 39℃</span>
                             </button>
 
-                            <button type="button" class="extream-card">
+                            <button type="button" class="extream-card" id="coldCity">
                                 <span class="extream-lable">❄️오늘 가장 추운 곳</span>
-                                <span class="extream-vaule">대전 23℃</span>
+                                <span class="extream-value">대전 23℃</span>
                             </button>
                         </div>
                     </div>
@@ -106,7 +112,7 @@
         </div>
     </div>
 
-    <div id="screen-detail" class="screen screen-detail" hidden>
+    <div id="screen-detail" class="screen  screen-detail" hidden>
         <header class="detail-header">
             <button type="button" id="backBtn" class="back-btn"> 목록으로</button>
         </header>
