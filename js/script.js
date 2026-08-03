@@ -130,8 +130,8 @@ $(function () {
         })
     }
     function loadCityList() {
-        const lat = HOME_CITIES.map(function(name) {return FALLBACK_CITIES[name],lat}).join(",");
-        const lon = HOME_CITIES.map(function(name) {return FALLBACK_CITIES[name],lon}).join(",");
+        const lat = HOME_CITIES.map(function(name) {return FALLBACK_CITIES[name].lat}).join(",");
+        const lon = HOME_CITIES.map(function(name) {return FALLBACK_CITIES[name].lon}).join(",");
 
          $.getJSON("https://api.open-meteo.com/v1/forecast", {
             latitude: lat,
@@ -142,7 +142,37 @@ $(function () {
             forecast_days: 5,
             timezone:"auto"
          })
-         .done(function(results){alert("주요 도시 날씨들을 불러왔습니다");})
+         .done(function(results){
+            let rows="";
+
+            let hotIdx = 0;
+
+            let coldIdx = 0;
+
+            for(let i = 0; i <results.length; i++) {
+                const name = HOME_CITIES[i];
+                const city = FALLBACK_CITIES[name];
+
+                rows +=cityRowTML(
+                    name,
+                    city.lat,
+                    city.lon,
+                    results[i].current.weather_code,
+                    results[i].current.temperature_2m
+                );
+
+                if(results[i].daily.temperature_2m_max[0] > results[hotIdx].daily.temperature_2m_max) {
+                    hotIdx = i;
+
+                }
+                if(results[i].daily.temperature_2m_min[0] < results[coldIdx].daily.temperature_2m_max) {
+                    coldIdx = i;
+                }
+            }
+
+
+            $("#cityList").html(rows);
+         })
          .fail(function() {alert("주요 도시 날씨를 불러오지 못했습니다.")});
 
         console.log(lat+ "," +lon);
@@ -255,11 +285,11 @@ $(function () {
     function cityRowTML(name, lat, long, weatherCode, tmep) {
         const info = getWeatherInfo(weatherCode);
 
-        return `<button type="button" class="city-row">
-                        <span class="city-row-name">서울</span>
+        return `<button type="button" class="city-row" "${name}data-name=" "${name}data-lat" "${name}data-lon">
+                        <span class="city-row-name">${name}</span>
                         <span class="city-row-weather">
-                            <img src="./icons/rain.svg" alt="" class="city-row-icon">
-                            <span class="city-row-temp">28℃</span>
+                            <img src="${info.icon}" alt="" class="city-row-icon">
+                            <span class="city-row-temp"${safeRound(temp)}℃</span>
                             <span class="city-row-chevron"></span>
                         </span>
                     </button>`
